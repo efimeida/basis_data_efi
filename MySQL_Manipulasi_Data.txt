@@ -1,0 +1,140 @@
+Enter password: ***
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 7
+Server version: 5.5.51 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| latihan01          |
+| mahasiswa          |
+| mhs                |
+| mysql              |
+| performance_schema |
+| praktikum          |
+| sekolah            |
+| test               |
++--------------------+
+9 rows in set (0.01 sec)
+
+mysql> use mahasiswa;
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_mahasiswa |
++---------------------+
+| mahasiswa01         |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from mahasiswa01;
++----------+---------------+--------------+----------+----------+-------+---------------+------------+------------+
+| nim      | nama          | alamat_jalan | kota     | kode_pos | no_hp | jenis_kelamin | tgl_lahir  | kode_dosen |
++----------+---------------+--------------+----------+----------+-------+---------------+------------+------------+
+| 11223344 | Ari Santoso   |              | Bekasi   |          |       | Laki-laki     | 1998-10-12 |            |
+| 11223345 | Ario Talib    |              | Cikarang |          |       | Laki-laki     | 1999-11-16 |            |
+| 11223346 | Dina Marlina  |              | Karawang |          |       | Perempuan     | 1997-12-01 |            |
+| 11223347 | Lisa Ayu      |              | Bekasi   |          |       | Perempuan     | 1996-01-02 |            |
+| 11223348 | Tiara Wahidah |              | Bekasi   |          |       | Perempuan     | 1980-02-05 |            |
+| 11223349 | Anton Sinaga  |              | Cikarang |          |       | Laki-laki     | 1988-03-10 |            |
++----------+---------------+--------------+----------+----------+-------+---------------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> update mahasiswa01 set tgl_lahir='1979-08-31'
+    -> where nama='Ari Santoso';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from mahasiswa01 where nama='Ari Santoso';
++----------+-------------+--------------+--------+----------+-------+---------------+------------+------------+
+| nim      | nama        | alamat_jalan | kota   | kode_pos | no_hp | jenis_kelamin | tgl_lahir  | kode_dosen |
++----------+-------------+--------------+--------+----------+-------+---------------+------------+------------+
+| 11223344 | Ari Santoso |              | Bekasi |          |       | Laki-laki     | 1979-08-31 |            |
++----------+-------------+--------------+--------+----------+-------+---------------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> delete from mahasiswa01
+    -> where nama='Dina Marlina';
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from mahasiswa01;
++----------+---------------+--------------+----------+----------+-------+---------------+------------+------------+
+| nim      | nama          | alamat_jalan | kota     | kode_pos | no_hp | jenis_kelamin | tgl_lahir  | kode_dosen |
++----------+---------------+--------------+----------+----------+-------+---------------+------------+------------+
+| 11223344 | Ari Santoso   |              | Bekasi   |          |       | Laki-laki     | 1979-08-31 |            |
+| 11223345 | Ario Talib    |              | Cikarang |          |       | Laki-laki     | 1999-11-16 |            |
+| 11223347 | Lisa Ayu      |              | Bekasi   |          |       | Perempuan     | 1996-01-02 |            |
+| 11223348 | Tiara Wahidah |              | Bekasi   |          |       | Perempuan     | 1980-02-05 |            |
+| 11223349 | Anton Sinaga  |              | Cikarang |          |       | Laki-laki     | 1988-03-10 |            |
++----------+---------------+--------------+----------+----------+-------+---------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from mahasiswa01
+    -> where tgl_lahir >="1996-01-02";
++----------+------------+--------------+----------+----------+-------+---------------+------------+------------+
+| nim      | nama       | alamat_jalan | kota     | kode_pos | no_hp | jenis_kelamin | tgl_lahir  | kode_dosen |
++----------+------------+--------------+----------+----------+-------+---------------+------------+------------+
+| 11223345 | Ario Talib |              | Cikarang |          |       | Laki-laki     | 1999-11-16 |            |
+| 11223347 | Lisa Ayu   |              | Bekasi   |          |       | Perempuan     | 1996-01-02 |            |
++----------+------------+--------------+----------+----------+-------+---------------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from mahasiswa01
+    -> where kota="Bekasi"
+    -> and jenis_kelamin="Perempuan";
++----------+---------------+--------------+--------+----------+-------+---------------+------------+------------+
+| nim      | nama          | alamat_jalan | kota   | kode_pos | no_hp | jenis_kelamin | tgl_lahir  | kode_dosen |
++----------+---------------+--------------+--------+----------+-------+---------------+------------+------------+
+| 11223347 | Lisa Ayu      |              | Bekasi |          |       | Perempuan     | 1996-01-02 |            |
+| 11223348 | Tiara Wahidah |              | Bekasi |          |       | Perempuan     | 1980-02-05 |            |
++----------+---------------+--------------+--------+----------+-------+---------------+------------+------------+
+2 rows in set (0.03 sec)
+
+mysql> select * from mahasiswa01
+    -> where kota="Bekasi" and jenis_kelamin="Laki-laki"
+    -> or tgl_lahir <="1997" and jenis_kelamin="Perempuan";
++----------+---------------+--------------+--------+----------+-------+---------------+------------+------------+
+| nim      | nama          | alamat_jalan | kota   | kode_pos | no_hp | jenis_kelamin | tgl_lahir  | kode_dosen |
++----------+---------------+--------------+--------+----------+-------+---------------+------------+------------+
+| 11223344 | Ari Santoso   |              | Bekasi |          |       | Laki-laki     | 1979-08-31 |            |
+| 11223347 | Lisa Ayu      |              | Bekasi |          |       | Perempuan     | 1996-01-02 |            |
+| 11223348 | Tiara Wahidah |              | Bekasi |          |       | Perempuan     | 1980-02-05 |            |
++----------+---------------+--------------+--------+----------+-------+---------------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select nama, alamat_jalan from mahasiswa01;
++---------------+--------------+
+| nama          | alamat_jalan |
++---------------+--------------+
+| Ari Santoso   |              |
+| Ario Talib    |              |
+| Lisa Ayu      |              |
+| Tiara Wahidah |              |
+| Anton Sinaga  |              |
++---------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from mahasiswa01
+    -> order by nama asc;
++----------+---------------+--------------+----------+----------+-------+---------------+------------+------------+
+| nim      | nama          | alamat_jalan | kota     | kode_pos | no_hp | jenis_kelamin | tgl_lahir  | kode_dosen |
++----------+---------------+--------------+----------+----------+-------+---------------+------------+------------+
+| 11223349 | Anton Sinaga  |              | Cikarang |          |       | Laki-laki     | 1988-03-10 |            |
+| 11223344 | Ari Santoso   |              | Bekasi   |          |       | Laki-laki     | 1979-08-31 |            |
+| 11223345 | Ario Talib    |              | Cikarang |          |       | Laki-laki     | 1999-11-16 |            |
+| 11223347 | Lisa Ayu      |              | Bekasi   |          |       | Perempuan     | 1996-01-02 |            |
+| 11223348 | Tiara Wahidah |              | Bekasi   |          |       | Perempuan     | 1980-02-05 |            |
++----------+---------------+--------------+----------+----------+-------+---------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql>
